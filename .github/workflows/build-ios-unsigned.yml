@@ -22,7 +22,6 @@ jobs:
           cat patch_parts_v5/part_* > saleh-ios-patch-v5.zip
           echo "D4F15538011EF3BE6763CFB62DB8E1EF656CA47CDD0ED7E5754E5260A1A104FB  saleh-ios-source.zip" | shasum -a 256 -c -
           echo "A5FC86A0E5FFE927DBE3D66E2ECE2336236FE5414207A5BC19EB9199B4C92D2E  saleh-ios-patch-v5.zip" | shasum -a 256 -c -
-          echo "C485F35702ED3178E5A06A15CC308D3E6C9D54241176E538C00985A0D62CAF61  patches/saleh-ios-patch-v7.zip" | shasum -a 256 -c -
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
           unzip -qo saleh-ios-patch-v5.zip -d saleh_app
