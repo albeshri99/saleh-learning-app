@@ -21,8 +21,10 @@ jobs:
         run: |
           cat source_parts_v3/part_* > saleh-ios-source.zip
           echo "D4F15538011EF3BE6763CFB62DB8E1EF656CA47CDD0ED7E5754E5260A1A104FB  saleh-ios-source.zip" | shasum -a 256 -c -
+          echo "930979AAA12F0960188939E396534401E245B54FE39EB0C4602655833C1A00AF  patches/saleh-ios-patch-v4.zip" | shasum -a 256 -c -
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
+          unzip -qo patches/saleh-ios-patch-v4.zip -d saleh_app
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -41,15 +43,15 @@ jobs:
         run: |
           mkdir Payload
           cp -R saleh_app/build/ios/iphoneos/Runner.app Payload/Runner.app
-          /usr/bin/zip -qry Saleh-unsigned.ipa Payload
-          shasum -a 256 Saleh-unsigned.ipa > Saleh-unsigned.ipa.sha256
+          /usr/bin/zip -qry Saleh-unsigned-v4.ipa Payload
+          shasum -a 256 Saleh-unsigned-v4.ipa > Saleh-unsigned-v4.ipa.sha256
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned-v3
+          name: Saleh-iOS-unsigned-v4
           path: |
-            Saleh-unsigned.ipa
-            Saleh-unsigned.ipa.sha256
+            Saleh-unsigned-v4.ipa
+            Saleh-unsigned-v4.ipa.sha256
           if-no-files-found: error
           retention-days: 14
