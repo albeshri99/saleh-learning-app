@@ -1,0 +1,240 @@
+{
+  "id": "tha",
+  "title": "حرف الثاء",
+  "mastery": {
+    "minScore": 0.6,
+    "requiredSceneIds": ["assessment_1"]
+  },
+  "scenes": [
+    {
+      "id": "welcome_1",
+      "type": "welcome",
+      "title": "ترحيب",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "أهلًا ومرحبًا يا {name}! أنا صالح، صديقك في رحلة الحروف.",
+          "female": "أهلًا ومرحبًا يا {name}! أنا صالح، صديقك في رحلة الحروف.",
+          "durationSec": 3.5,
+          "events": [
+            { "action": "playAnimation", "target": "saleh", "atSec": 0, "params": { "name": "wave" } }
+          ]
+        },
+        {
+          "male": "اليوم سنتعلم حرفًا جديدًا ممتعًا. هيا بنا!",
+          "female": "اليوم سنتعلم حرفًا جديدًا ممتعًا. هيا بنا!",
+          "durationSec": 3
+        }
+      ],
+      "data": {}
+    },
+    {
+      "id": "review_1",
+      "type": "review",
+      "title": "مراجعة قبلية",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "قبل أن نبدأ يا {name}، لنتذكرْ معًا الحروف التي تعلمناها.",
+          "female": "قبل أن نبدأ يا {name}، لنتذكري معي الحروف التي تعلمناها.",
+          "durationSec": 3.5
+        }
+      ],
+      "data": {
+        "items": [
+          { "letter": "أ", "word": "أسد", "emoji": "🦁" },
+          { "letter": "ب", "word": "بطة", "emoji": "🦆" },
+          { "letter": "ت", "word": "تفاحة", "emoji": "🍎" }
+        ]
+      }
+    },
+    {
+      "id": "nasheed_1",
+      "type": "nasheed",
+      "title": "أنشودة الحرف",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "هيا نستمعْ إلى أنشودة حرف الثاء!",
+          "female": "هيا نستمعي إلى أنشودة حرف الثاء!",
+          "durationSec": 2.5
+        }
+      ],
+      "data": {
+        "mediaType": "audio",
+        "media": "assets/audio/nasheed_tha.mp3",
+        "durationSec": 8
+      }
+    },
+    {
+      "id": "explain_1",
+      "type": "explanation",
+      "title": "شرح الحرف",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "انظرْ يا {name}، هذا هو حرف الثاء.",
+          "female": "انظري يا {name}، هذا هو حرف الثاء.",
+          "durationSec": 3,
+          "events": [
+            { "action": "show", "target": "letter", "atSec": 0.4 },
+            { "action": "salehPointAt", "target": "letter", "atSec": 0.4 }
+          ]
+        },
+        {
+          "male": "ردد معي: ثَاء… ثَاء.",
+          "female": "رددي معي: ثَاء… ثَاء.",
+          "durationSec": 3.5,
+          "events": [
+            { "action": "pulse", "target": "letter", "atSec": 0.5 },
+            { "action": "pulse", "target": "letter", "atSec": 2.0 }
+          ]
+        },
+        {
+          "male": "انظرْ كيف نكتب حرف الثاء.",
+          "female": "انظري كيف نكتب حرف الثاء.",
+          "durationSec": 4.5,
+          "events": [
+            { "action": "drawPath", "target": "letter", "atSec": 0.6 }
+          ]
+        },
+        {
+          "male": "هذا ثُوم. ثُومٌ مفيدٌ لصحتنا.",
+          "female": "هذا ثُوم. ثُومٌ مفيدٌ لصحتنا.",
+          "durationSec": 4,
+          "events": [
+            { "action": "show", "target": "example", "atSec": 0.3 },
+            { "action": "highlight", "target": "exampleLetter", "atSec": 1.2 }
+          ]
+        }
+      ],
+      "data": {
+        "letter": "ثَ",
+        "letterName": "الثاء",
+        "example": { "word": "ثوم", "emoji": "🧄", "highlightPrefix": "ث" },
+        "strokes": [
+          {
+            "kind": "path",
+            "points": [
+              [0.84, 0.18], [0.84, 0.36], [0.82, 0.50], [0.77, 0.59],
+              [0.67, 0.64], [0.54, 0.66], [0.40, 0.66], [0.28, 0.64],
+              [0.19, 0.58], [0.15, 0.49], [0.14, 0.39]
+            ]
+          },
+          { "kind": "dot", "center": [0.42, 0.23] },
+          { "kind": "dot", "center": [0.58, 0.23] },
+          { "kind": "dot", "center": [0.5, 0.09] }
+        ]
+      }
+    },
+    {
+      "id": "pronounce_1",
+      "type": "pronunciation",
+      "title": "تدريب النطق",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "الآن دورك يا {name}! اضغطْ على الميكروفون وانطقْ اسم هذا الحرف.",
+          "female": "الآن دورك يا {name}! اضغطي على الميكروفون وانطقي اسم هذا الحرف.",
+          "durationSec": 4
+        }
+      ],
+      "data": {
+        "letter": "ثَ",
+        "expected": "ثاء",
+        "maxAttempts": 3
+      }
+    },
+    {
+      "id": "write_guided_1",
+      "type": "guidedWriting",
+      "title": "الكتابة بالدليل",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "ضعْ إصبعك على النقطة الخضراء، وتتبعِ المسار لتكتب حرف الثاء.",
+          "female": "ضعي إصبعك على النقطة الخضراء، وتتبعي المسار لتكتبي حرف الثاء.",
+          "durationSec": 4
+        }
+      ],
+      "data": {
+        "letter": "ثَ",
+        "writing": { "guidedAttempts": 2, "freeAttempts": 0, "required": true },
+        "strokes": [
+          {
+            "kind": "path",
+            "points": [
+              [0.84, 0.18], [0.84, 0.36], [0.82, 0.50], [0.77, 0.59],
+              [0.67, 0.64], [0.54, 0.66], [0.40, 0.66], [0.28, 0.64],
+              [0.19, 0.58], [0.15, 0.49], [0.14, 0.39]
+            ]
+          },
+          { "kind": "dot", "center": [0.42, 0.23] },
+          { "kind": "dot", "center": [0.58, 0.23] },
+          { "kind": "dot", "center": [0.5, 0.09] }
+        ]
+      }
+    },
+    {
+      "id": "write_free_1",
+      "type": "freeWriting",
+      "title": "الكتابة الحرة",
+      "canSkip": true,
+      "lines": [
+        {
+          "male": "رائع يا {name}! الآن اكتبْ حرف الثاء بنفسك دون دليل.",
+          "female": "رائع يا {name}! الآن اكتبي حرف الثاء بنفسك دون دليل.",
+          "durationSec": 4
+        }
+      ],
+      "data": {
+        "letter": "ثَ",
+        "writing": { "guidedAttempts": 0, "freeAttempts": 2, "required": true }
+      }
+    },
+    {
+      "id": "assessment_1",
+      "type": "multipleChoice",
+      "title": "التقويم الختامي",
+      "canSkip": false,
+      "lines": [
+        {
+          "male": "وصلنا إلى التحدي الأخير يا {name}! أين حرف الثاء؟",
+          "female": "وصلنا إلى التحدي الأخير يا {name}! أين حرف الثاء؟",
+          "durationSec": 3.5
+        }
+      ],
+      "data": {
+        "questions": [
+          {
+            "prompt": "اضغط على حرف الثاء",
+            "options": ["ث", "ت", "ب", "ن"],
+            "correctIndex": 0
+          },
+          {
+            "prompt": "أي كلمة تبدأ بحرف الثاء؟",
+            "options": ["ثوم", "تفاحة", "بطة"],
+            "correctIndex": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "success_1",
+      "type": "success",
+      "title": "أحسنت",
+      "canSkip": false,
+      "lines": [
+        {
+          "male": "أحسنتَ يا {name}! لقد تعلمتَ حرف الثاء. أنا فخور بك!",
+          "female": "أحسنتِ يا {name}! لقد تعلمتِ حرف الثاء. أنا فخور بكِ!",
+          "durationSec": 4,
+          "events": [
+            { "action": "salehCelebrate", "target": "saleh", "atSec": 0.3 }
+          ]
+        }
+      ],
+      "data": { "stars": 3 }
+    }
+  ]
+}
