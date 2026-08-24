@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ios-unsigned-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-ios:
     runs-on: macos-latest
@@ -25,13 +29,13 @@ jobs:
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
           unzip -qo saleh-ios-patch-v5.zip -d saleh_app
-          unzip -qo patches/saleh-ios-patch-v7.zip -d saleh_app
+          cp -R patch_v7/. saleh_app/
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
-      - name: Build unsigned iOS app
+      - name: Verify and build unsigned iOS app
         working-directory: saleh_app
         run: |
           flutter pub get
