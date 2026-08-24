@@ -3,7 +3,7 @@ name: Build unsigned Saleh IPA
 on:
   push:
     branches: [ipa-build-v10]
-  workflow_dispatch:
+  pull_request:\n    branches: [main]\n  workflow_dispatch:
 
 permissions:
   contents: read
