@@ -19,7 +19,8 @@ jobs:
 
       - name: Restore project source
         run: |
-          cat source_parts_v2/part_* > saleh-ios-source.zip
+          cat source_parts_v3/part_* > saleh-ios-source.zip
+          echo "D4F15538011EF3BE6763CFB62DB8E1EF656CA47CDD0ED7E5754E5260A1A104FB  saleh-ios-source.zip" | shasum -a 256 -c -
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
 
@@ -46,7 +47,7 @@ jobs:
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned-v2
+          name: Saleh-iOS-unsigned-v3
           path: |
             Saleh-unsigned.ipa
             Saleh-unsigned.ipa.sha256
