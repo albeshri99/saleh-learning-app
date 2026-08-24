@@ -4,7 +4,7 @@ on:
   push:
     branches: [ipa-build-v13]
   pull_request:
-    branches: [main]
+    branches: [ipa-build-v13]
   workflow_dispatch:
 
 permissions:
