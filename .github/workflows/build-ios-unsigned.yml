@@ -16,43 +16,40 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-
       - name: Restore project source
         run: |
           cat source_parts_v3/part_* > saleh-ios-source.zip
           cat patch_parts_v5/part_* > saleh-ios-patch-v5.zip
           echo "D4F15538011EF3BE6763CFB62DB8E1EF656CA47CDD0ED7E5754E5260A1A104FB  saleh-ios-source.zip" | shasum -a 256 -c -
           echo "A5FC86A0E5FFE927DBE3D66E2ECE2336236FE5414207A5BC19EB9199B4C92D2E  saleh-ios-patch-v5.zip" | shasum -a 256 -c -
+          echo "7608172DD964071AF4B78C64CE9ECD6CB33CB929A50C3042D9A6E1320D006130  patches/saleh-ios-patch-v6.zip" | shasum -a 256 -c -
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
           unzip -qo saleh-ios-patch-v5.zip -d saleh_app
-
+          unzip -qo patches/saleh-ios-patch-v6.zip -d saleh_app
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
-
       - name: Build unsigned iOS app
         working-directory: saleh_app
         run: |
           flutter pub get
           flutter analyze
           flutter build ios --release --no-codesign
-
       - name: Package IPA
         run: |
           mkdir Payload
           cp -R saleh_app/build/ios/iphoneos/Runner.app Payload/Runner.app
-          /usr/bin/zip -qry Saleh-unsigned-v5.ipa Payload
-          shasum -a 256 Saleh-unsigned-v5.ipa > Saleh-unsigned-v5.ipa.sha256
-
+          /usr/bin/zip -qry Saleh-unsigned-v6.ipa Payload
+          shasum -a 256 Saleh-unsigned-v6.ipa > Saleh-unsigned-v6.ipa.sha256
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned-v5
+          name: Saleh-iOS-unsigned-v6
           path: |
-            Saleh-unsigned-v5.ipa
-            Saleh-unsigned-v5.ipa.sha256
+            Saleh-unsigned-v6.ipa
+            Saleh-unsigned-v6.ipa.sha256
           if-no-files-found: error
           retention-days: 14
