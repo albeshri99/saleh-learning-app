@@ -19,10 +19,9 @@ jobs:
 
       - name: Restore project source
         run: |
-          cat source_parts/part-*.bin > saleh-ios-source.zip
+          cat source_parts_v2/part-* > saleh-ios-source.zip
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
-          cp patches/saleh_video_renderer.dart saleh_app/lib/features/character/video/saleh_video_renderer.dart
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -47,7 +46,7 @@ jobs:
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned
+          name: Saleh-iOS-unsigned-v2
           path: |
             Saleh-unsigned.ipa
             Saleh-unsigned.ipa.sha256
