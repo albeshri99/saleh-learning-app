@@ -19,7 +19,7 @@ jobs:
 
       - name: Restore project source
         run: |
-          cat source_parts_v2/part-* > saleh-ios-source.zip
+          cat source_parts_v2/part_* > saleh-ios-source.zip
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
 
