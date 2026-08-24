@@ -128,8 +128,7 @@ class _GuidedTracingCanvasState extends State<GuidedTracingCanvas> {
     if (_done) return;
     final stroke = widget.strokes[_strokeIndex];
     if (stroke.kind != StrokeKind.dot) return;
-    final c = Offset(
-        stroke.center!.dx * _size.width, stroke.center!.dy * _size.height);
+    final c = stroke.samples(_size).first;
     if ((pos - c).distance < _tolerance) _advanceStroke();
   }
 
@@ -156,16 +155,10 @@ class _GuidedTracingCanvasState extends State<GuidedTracingCanvas> {
               showStartDot: !_done,
               startDot: _done
                   ? null
-                  : (widget.strokes[_strokeIndex].kind == StrokeKind.dot
-                      ? Offset(
-                          widget.strokes[_strokeIndex].center!.dx * _size.width,
-                          widget.strokes[_strokeIndex].center!.dy *
-                              _size.height,
-                        )
-                      : (_samples.isEmpty
-                          ? null
-                          : _samples[
-                              _sampleIndex.clamp(0, _samples.length - 1)])),
+                  : (_samples.isEmpty
+                      ? null
+                      : _samples[
+                          _sampleIndex.clamp(0, _samples.length - 1)]),
             ),
             child: const SizedBox.expand(),
           ),
