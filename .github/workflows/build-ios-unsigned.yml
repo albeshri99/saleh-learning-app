@@ -2,7 +2,7 @@ name: Build unsigned Saleh IPA
 
 on:
   push:
-    branches: [ipa-build-v10]
+    branches: [ipa-build-v11]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -33,6 +33,7 @@ jobs:
           cp -R patch_v8/. saleh_app/
           cp -R patch_v9/. saleh_app/
           cp -R patch_v10/. saleh_app/
+          cp -R patch_v11/. saleh_app/
       - name: Generate approved app icons
         working-directory: saleh_app
         run: |
@@ -74,14 +75,14 @@ jobs:
         run: |
           mkdir Payload
           cp -R saleh_app/build/ios/iphoneos/Runner.app Payload/Runner.app
-          /usr/bin/zip -qry Saleh-unsigned-v10.ipa Payload
-          shasum -a 256 Saleh-unsigned-v10.ipa > Saleh-unsigned-v10.ipa.sha256
+          /usr/bin/zip -qry Saleh-unsigned-v11.ipa Payload
+          shasum -a 256 Saleh-unsigned-v11.ipa > Saleh-unsigned-v11.ipa.sha256
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned-v10
+          name: Saleh-iOS-unsigned-v11
           path: |
-            Saleh-unsigned-v10.ipa
-            Saleh-unsigned-v10.ipa.sha256
+            Saleh-unsigned-v11.ipa
+            Saleh-unsigned-v11.ipa.sha256
           if-no-files-found: error
           retention-days: 14
