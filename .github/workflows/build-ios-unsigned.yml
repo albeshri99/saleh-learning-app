@@ -2,7 +2,7 @@ name: Build unsigned Saleh IPA
 
 on:
   push:
-    branches: [main]
+    branches: [ipa-build-v12]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -10,45 +10,80 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ios-unsigned-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-ios:
     runs-on: macos-latest
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-
       - name: Restore project source
         run: |
-          cat source_parts/part-*.bin > saleh-ios-source.zip
+          cat source_parts_v3/part_* > saleh-ios-source.zip
+          cat patch_parts_v5/part_* > saleh-ios-patch-v5.zip
+          echo "D4F15538011EF3BE6763CFB62DB8E1EF656CA47CDD0ED7E5754E5260A1A104FB  saleh-ios-source.zip" | shasum -a 256 -c -
+          echo "A5FC86A0E5FFE927DBE3D66E2ECE2336236FE5414207A5BC19EB9199B4C92D2E  saleh-ios-patch-v5.zip" | shasum -a 256 -c -
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
-
+          unzip -qo saleh-ios-patch-v5.zip -d saleh_app
+          cp -R patch_v7/. saleh_app/
+          cp -R patch_v8/. saleh_app/
+          cp -R patch_v9/. saleh_app/
+          cp -R patch_v10/. saleh_app/
+          cp -R patch_v11/. saleh_app/
+          cp -R patch_v12/. saleh_app/
+      - name: Generate approved app icons
+        working-directory: saleh_app
+        run: |
+          SRC=assets/images/app_icon_build.jpg
+          ICONDIR=ios/Runner/Assets.xcassets/AppIcon.appiconset
+          mkdir -p "$ICONDIR"
+          while IFS=: read -r file size; do
+            sips -s format png --resampleHeightWidth "$size" "$size" "$SRC" --out "$ICONDIR/$file" >/dev/null
+          done <<'SIZES'
+          Icon-App-20x20@1x.png:20
+          Icon-App-20x20@2x.png:40
+          Icon-App-20x20@3x.png:60
+          Icon-App-29x29@1x.png:29
+          Icon-App-29x29@2x.png:58
+          Icon-App-29x29@3x.png:87
+          Icon-App-40x40@1x.png:40
+          Icon-App-40x40@2x.png:80
+          Icon-App-40x40@3x.png:120
+          Icon-App-60x60@2x.png:120
+          Icon-App-60x60@3x.png:180
+          Icon-App-76x76@1x.png:76
+          Icon-App-76x76@2x.png:152
+          Icon-App-83.5x83.5@2x.png:167
+          Icon-App-1024x1024@1x.png:1024
+          SIZES
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
-
-      - name: Build unsigned iOS app
+      - name: Verify and build unsigned iOS app
         working-directory: saleh_app
         run: |
           flutter pub get
           flutter analyze
+          flutter test
           flutter build ios --release --no-codesign
-
       - name: Package IPA
         run: |
           mkdir Payload
           cp -R saleh_app/build/ios/iphoneos/Runner.app Payload/Runner.app
-          /usr/bin/zip -qry Saleh-unsigned.ipa Payload
-          shasum -a 256 Saleh-unsigned.ipa > Saleh-unsigned.ipa.sha256
-
+          /usr/bin/zip -qry Saleh-unsigned-v12.ipa Payload
+          shasum -a 256 Saleh-unsigned-v12.ipa > Saleh-unsigned-v12.ipa.sha256
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned
+          name: Saleh-iOS-unsigned-v12
           path: |
-            Saleh-unsigned.ipa
-            Saleh-unsigned.ipa.sha256
+            Saleh-unsigned-v12.ipa
+            Saleh-unsigned-v12.ipa.sha256
           if-no-files-found: error
           retention-days: 14
