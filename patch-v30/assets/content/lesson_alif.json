@@ -1,0 +1,67 @@
+{
+  "id": "alif",
+  "title": "درس حرف أَ",
+  "mastery": { "minScore": 0.6, "requiredSceneIds": ["assessment_1"] },
+  "scenes": [
+    {
+      "id": "welcome_1", "type": "welcome", "title": "ترحيب", "canSkip": true,
+      "lines": [{
+        "male": "مرحباً يا أصدقائي، كيف حالكم اليوم؟ سوف نتعلم اليوم حرفاً جديداً، حرف الـ أَ. هيا بنا.",
+        "female": "مرحباً يا أصدقائي، كيف حالكم اليوم؟ سوف نتعلم اليوم حرفاً جديداً، حرف الـ أَ. هيا بنا.",
+        "audio": "assets/audio/alif/welcome.mp3", "durationSec": 8,
+        "events": [{ "action": "playAnimation", "target": "saleh", "atSec": 0, "params": { "name": "wave" } }]
+      }], "data": {}
+    },
+    {
+      "id": "nasheed_1", "type": "nasheed", "title": "أنشودة الحرف", "canSkip": true,
+      "lines": [{
+        "male": "هيا نستمع إلى نشيد حرف الـ أَ.", "female": "هيا نستمع إلى نشيد حرف الـ أَ.",
+        "audio": "assets/audio/alif/nasheed_intro.mp3", "durationSec": 3
+      }],
+      "data": { "mediaType": "audio", "durationSec": 8, "label": "أنشودة حرف أَ" }
+    },
+    {
+      "id": "explain_1", "type": "explanation", "title": "شرح الحرف", "canSkip": true,
+      "lines": [
+        { "male": "انظروا يا أصدقائي إلى حرف الـ أَ، إنه حرف جميل.", "female": "انظروا يا أصدقائي إلى حرف الـ أَ، إنه حرف جميل.", "audio": "assets/audio/alif/explain_1.mp3", "durationSec": 5, "events": [{"action":"show","target":"letter","atSec":0.2},{"action":"salehPointAt","target":"letter","atSec":0.3}] },
+        { "male": "أَ - أَ - أَ. هل تعرفون كلمةً تبدأ بحرف الـ أَ؟", "female": "أَ - أَ - أَ. هل تعرفون كلمةً تبدأ بحرف الـ أَ؟", "audio": "assets/audio/alif/explain_2.mp3", "durationSec": 5, "events": [{"action":"pulse","target":"letter","atSec":0.3},{"action":"pulse","target":"letter","atSec":1.1},{"action":"pulse","target":"letter","atSec":1.9}] },
+        { "male": "أَ - أسد. أَ - أسد.", "female": "أَ - أسد. أَ - أسد.", "audio": "assets/audio/alif/explain_3.mp3", "durationSec": 4, "events": [{"action":"show","target":"example","atSec":0.4},{"action":"highlight","target":"exampleLetter","atSec":0.8}] },
+        { "male": "انظروا إلى كلمة أسد، إنها تبدأ بحرف الـ أَ.", "female": "انظروا إلى كلمة أسد، إنها تبدأ بحرف الـ أَ.", "audio": "assets/audio/alif/explain_4.mp3", "durationSec": 5 },
+        { "male": "رددوا معي: أَ - أسد، أَ - أسد، أَ - أسد.", "female": "رددوا معي: أَ - أسد، أَ - أسد، أَ - أسد.", "audio": "assets/audio/alif/explain_5.mp3", "durationSec": 6 },
+        { "male": "هكذا يا أصدقائي تعلمنا اليوم حرف الـ أَ. سننتقل الآن إلى نطق وكتابة حرف الـ أَ. هيا بنا.", "female": "هكذا يا أصدقائي تعلمنا اليوم حرف الـ أَ. سننتقل الآن إلى نطق وكتابة حرف الـ أَ. هيا بنا.", "audio": "assets/audio/alif/explain_6.mp3", "durationSec": 8 }
+      ],
+      "data": { "letter": "أَ", "letterName": "الألف", "example": { "word": "أَسد", "imageAsset": "assets/images/assessment/alif_lion.png", "highlightPrefix": "أَ" } }
+    },
+    {
+      "id": "pronounce_1", "type": "pronunciation", "title": "تدريب النطق", "canSkip": true,
+      "lines": [{ "male": "هيا يا أصدقائي سأستمع إلى نطقكم لحرف الـ أَ. أَ - أَ - أَ. اضغطوا على زر المايك وقوموا بنطق الحرف. هيا.", "female": "هيا يا أصدقائي سأستمع إلى نطقكم لحرف الـ أَ. أَ - أَ - أَ. اضغطوا على زر المايك وقوموا بنطق الحرف. هيا.", "audio": "assets/audio/alif/pronounce_intro.mp3", "durationSec": 10 }],
+      "data": { "letter": "أَ", "spokenLetter": "آ", "expected": "آ", "maxAttempts": 3, "retryAudio": "assets/audio/alif/pronounce_retry.mp3", "successAudio": "assets/audio/alif/pronounce_success.mp3" }
+    },
+    {
+      "id": "write_guided_1", "type": "guidedWriting", "title": "الكتابة بالدليل", "canSkip": true,
+      "lines": [
+        { "male": "انظروا يا أصدقائي كيف نكتب حرف الـ أَ. نبدأ من الأعلى ونكتب الحرف هكذا. انظروا مرة أخرى. نبدأ من الأعلى ونكتب الحرف هكذا.", "female": "انظروا يا أصدقائي كيف نكتب حرف الـ أَ. نبدأ من الأعلى ونكتب الحرف هكذا. انظروا مرة أخرى. نبدأ من الأعلى ونكتب الحرف هكذا.", "audio": "assets/audio/alif/writing_intro.mp3", "durationSec": 11 },
+        { "male": "هيا يا أصدقائي اكتبوا حرف الـ أَ، اتبعوا مسار الحرف وقوموا بكتابة الحرف. أَ - أَ.", "female": "هيا يا أصدقائي اكتبوا حرف الـ أَ، اتبعوا مسار الحرف وقوموا بكتابة الحرف. أَ - أَ.", "audio": "assets/audio/alif/writing_try.mp3", "durationSec": 8 }
+      ],
+      "data": { "letter": "أَ", "traceTemplateId": "alif_fatha_video_v1", "writing": { "guidedAttempts": 2, "freeAttempts": 0, "required": true }, "againAudio": "assets/audio/alif/writing_again.mp3", "successAudio": "assets/audio/alif/writing_success.mp3" }
+    },
+    {
+      "id": "write_free_1", "type": "freeWriting", "title": "الكتابة الحرة", "canSkip": true,
+      "lines": [{ "male": "هيا يا أصدقائي هل تذكرون كيفية كتابة حرف الـ أَ؟ قوموا بكتابة حرف الـ أَ الآن.", "female": "هيا يا أصدقائي هل تذكرون كيفية كتابة حرف الـ أَ؟ قوموا بكتابة حرف الـ أَ الآن.", "audio": "assets/audio/alif/free_intro.mp3", "durationSec": 7 }],
+      "data": { "letter": "أَ", "traceTemplateId": "alif_fatha_video_v1", "writing": { "guidedAttempts": 0, "freeAttempts": 1, "required": false }, "successAudio": "assets/audio/alif/free_success.mp3" }
+    },
+    {
+      "id": "assessment_1", "type": "multipleChoice", "title": "التقويم الختامي", "canSkip": false,
+      "lines": [{ "male": "الآن يا أصدقائي سأختبر معلوماتكم. أين حرف الـ أَ؟ اختاروا حرف الـ أَ.", "female": "الآن يا أصدقائي سأختبر معلوماتكم. أين حرف الـ أَ؟ اختاروا حرف الـ أَ.", "audio": "assets/audio/alif/assessment_1.mp3", "durationSec": 7 }],
+      "data": { "retryAudio": "assets/audio/alif/assessment_retry.mp3", "successAudio": "assets/audio/alif/assessment_success.mp3", "secondAudio": "assets/audio/alif/assessment_2.mp3", "questions": [
+        { "prompt": "اضغط على حرف أَ", "showPrompt": false, "options": ["أَ","ثَ","بَ","نَ"], "correctIndex": 0 },
+        { "prompt": "ما الكلمة التي تبدأ بحرف أَ؟", "options": ["أَسد","بطة","ثعلب"], "optionImages": ["assets/images/assessment/alif_lion.png","assets/images/assessment/duck.png","assets/images/assessment/fox.png"], "correctIndex": 0 }
+      ] }
+    },
+    {
+      "id": "success_1", "type": "success", "title": "أحسنت", "canSkip": false,
+      "lines": [{ "male": "أحسنتم يا أبطال. الحمد لله، لقد تعرفنا هذا اليوم على حرف الـ أَ. نلقاكم غداً بإذن الله. إلى اللقاء يا أصدقائي.", "female": "أحسنتم يا أبطال. الحمد لله، لقد تعرفنا هذا اليوم على حرف الـ أَ. نلقاكم غداً بإذن الله. إلى اللقاء يا أصدقائي.", "audio": "assets/audio/alif/closing.mp3", "durationSec": 11, "events": [{"action":"playAnimation","target":"saleh","atSec":0.2,"params":{"name":"wave"}}] }],
+      "data": { "stars": 3 }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+name: saleh_app
+description: "منصة تعليمية لتأسيس اللغة العربية للأطفال — نتعلّم مع صالح"
+publish_to: "none"
+version: 0.1.0+33
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management — تعتمد عليه طبقة الـ Presentation بالكامل
+  flutter_riverpod: ^2.5.1
+
+  # Navigation — مسارات معلنة وقابلة للتوسع (deep links مستقبلًا)
+  go_router: ^14.2.0
+
+  # حفظ التقدم محليًا مؤقتًا (سيستبدل بـ Firebase خلف نفس الواجهة)
+  shared_preferences: ^2.3.0
+
+  just_audio: ^0.10.6
+  audio_session: ^0.2.4
+  speech_to_text: ^7.4.0
+
+  # شخصية صالح مبنية على الفيديو الشفاف.
+  video_player: ^2.9.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/content/
+    - assets/backgrounds/
+    - assets/images/assessment/
+    - assets/images/writing/
+    - assets/character/saleh_video/
+    - assets/character/saleh_idle.png
+    - assets/character/saleh_talking.png
+    - assets/character/saleh_pointing.png
+    - assets/character/saleh_celebrating.png
+    - assets/character/saleh_waving.png
+    - assets/audio/
+    - assets/audio/alif/
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Tajawal-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Tajawal-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Tajawal-ExtraBold.ttf
+          weight: 800

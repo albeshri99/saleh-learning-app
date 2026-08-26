@@ -1,19 +1,23 @@
-name: Build unsigned Saleh IPA
+name: Build unsigned Saleh IPA v33
 
 on:
   push:
-    branches: [main]
+    branches: [build/ios-v14, build/ios-v29]
   pull_request:
-    branches: [main]
+    branches: [main, build/ios-v29]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: ios-unsigned-v33
+  cancel-in-progress: true
+
 jobs:
   build-ios:
-    runs-on: macos-latest
-    timeout-minutes: 45
+    runs-on: macos-14
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -22,7 +26,37 @@ jobs:
           cat source_parts/part-*.bin > saleh-ios-source.zip
           mkdir saleh_app
           unzip -q saleh-ios-source.zip -d saleh_app
-          unzip -qo patch-v14.zip -d saleh_app
+          cat patch_v5_parts/part-*.bin > patch-v5.zip
+          unzip -qo patch-v5.zip -d saleh_app
+          cat patch_v14_parts/part-*.bin > patch-v14-full.zip
+          unzip -qo patch-v14-full.zip -d saleh_app
+          cat patch_v15_parts/part-*.bin > patch-v15-rebuilt.zip
+          echo "943a5b097eb23fdac8c07ed2c93fbc794f7071ebcc230bf4c152314727707a8a  patch-v15-rebuilt.zip" | shasum -a 256 -c -
+          unzip -qo patch-v15-rebuilt.zip -d saleh_app
+          echo "74e7f6fa6e3a6a227644d47533860f4d8b462c3d831a2902dadad56658d559dc  patch-v16-alif.zip" | shasum -a 256 -c -
+          unzip -qo patch-v16-alif.zip -d saleh_app
+          echo "e98cad56406486c8545e75a07981dff7ed1ef6419b12a2701de73447dc53cde6  patch-v17-audio-fix.zip" | shasum -a 256 -c -
+          unzip -qo patch-v17-audio-fix.zip -d saleh_app
+          echo "70c61a2cdcec0edc943730697fda22933b51fafad93240d108187f92258b5a97  patch-v18-audio-activation.zip" | shasum -a 256 -c -
+          unzip -qo patch-v18-audio-activation.zip -d saleh_app
+          echo "30f3fa696388827984302850e642613eb18e0b4791bb4341cb34d84f9036e23a  patch-v19-lesson-feedback.zip" | shasum -a 256 -c -
+          unzip -qo patch-v19-lesson-feedback.zip -d saleh_app
+          echo "f3a28c86ebfa52dd23e1368f545d2d42f59709f7379dbe4d6a8c402ea5ae79db  patch-v20-autoplay-version.zip" | shasum -a 256 -c -
+          unzip -qo patch-v20-autoplay-version.zip -d saleh_app
+          echo "2aed70f4593338f2ba3494a948d40784cc2f5dffebe6fd9435cecf1ee7f32758  patch-v21-user-audio.zip" | shasum -a 256 -c -
+          unzip -qo patch-v21-user-audio.zip -d saleh_app
+          cp -R patch-v22/. saleh_app/
+          cp -R patch-v23/. saleh_app/
+          cp -R patch-v24/. saleh_app/
+          cp -R patch-v25/. saleh_app/
+          cp -R patch-v26/. saleh_app/
+          cp -R patch-v27/. saleh_app/
+          cp -R patch-v28/. saleh_app/
+          cp -R patch-v29/. saleh_app/
+          cp -R patch-v30/. saleh_app/
+          cp -R patch-v31/. saleh_app/
+          cp -R patch-v32/. saleh_app/
+          cp -R patch-v33/. saleh_app/
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -30,27 +64,34 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Build unsigned iOS app
+      - name: Clean animated alpha assets
+        working-directory: saleh_app
+        run: |
+          python3 -m venv .alpha-venv
+          .alpha-venv/bin/pip install --quiet pillow
+          .alpha-venv/bin/python tool/clean_animated_alpha.py
+
+      - name: Verify and build unsigned iOS app
         working-directory: saleh_app
         run: |
           flutter pub get
           flutter analyze
-          flutter test
+          flutter test test/writing_interaction_test.dart test/widget_test.dart test/saleh_character_controller_test.dart test/alif_audio_assets_test.dart test/alif_lesson_interaction_test.dart test/handwriting_validator_test.dart test/mcq_animal_cards_test.dart
           flutter build ios --release --no-codesign
 
       - name: Package IPA
         run: |
           mkdir Payload
           cp -R saleh_app/build/ios/iphoneos/Runner.app Payload/Runner.app
-          /usr/bin/zip -qry Saleh-unsigned.ipa Payload
-          shasum -a 256 Saleh-unsigned.ipa > Saleh-unsigned.ipa.sha256
+          /usr/bin/zip -qry Saleh-unsigned-v33.ipa Payload
+          shasum -a 256 Saleh-unsigned-v33.ipa > Saleh-unsigned-v33.ipa.sha256
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: Saleh-iOS-unsigned-v14
+          name: Saleh-iOS-unsigned-v33
           path: |
-            Saleh-unsigned.ipa
-            Saleh-unsigned.ipa.sha256
+            Saleh-unsigned-v33.ipa
+            Saleh-unsigned-v33.ipa.sha256
           if-no-files-found: error
           retention-days: 14
